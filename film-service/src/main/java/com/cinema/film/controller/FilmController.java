@@ -27,9 +27,21 @@ public class FilmController {
     // GET film by ID
     @GetMapping("/{id}")
     public ResponseEntity<Film> getFilmById(@PathVariable Long id) {
+
         Optional<Film> film = filmRepository.findById(id);
-        return film.map(ResponseEntity::ok)
+    /* Optional : représente une valeur qui peut être présente ou absente,
+       et permet d’éviter les erreurs lorsqu’un résultat n’existe pas. */
+
+        return film
+                .map(ResponseEntity::ok)
+                /* map : méthode d’Optional utilisée pour transformer la valeur si elle est présente.
+                   Ici, elle transforme le Film trouvé en une réponse HTTP 200 (OK). */
+
+                /* ResponseEntity : classe Spring Boot qui permet de construire
+                   une réponse HTTP complète (code, contenu, en-têtes). */
+
                 .orElse(ResponseEntity.notFound().build());
+        /* Si aucun film n’est trouvé, on renvoie une réponse HTTP 404 (Not Found). */
     }
 
     // CREATE film
