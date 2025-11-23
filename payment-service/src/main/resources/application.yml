@@ -1,0 +1,31 @@
+# Configuration du serveur Spring Boot et configuration de H2. H2 est une base de données en mémoire, facile à configurer et pratique pour tester et développer sans installer une vraie base.
+#Elle disparaît à la fermeture de l’application, donc idéale pour prototypes et tests rapides.
+server:
+  port: 8083          # Le serveur Spring Boot démarrera sur le port 8083 au lieu du port par défaut 8080
+
+# Configuration générale de Spring
+spring:
+  application:
+    name: payment-service   # Nom de l'application Spring, utile pour l'identification dans les logs ou Eureka
+
+  datasource:
+    url: jdbc:h2:mem:paymentdb   # URL de connexion à la base de données H2 en mémoire nommée "paymentdb"
+    username: sa                 # Nom d'utilisateur pour se connecter à la DB
+    password:                    # Mot de passe pour la DB (vide ici)
+    driver-class-name: org.h2.Driver  # Driver JDBC utilisé pour H2
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop      # La base est recréée à chaque démarrage et supprimée à l'arrêt (utile pour tests)
+    show-sql: true               # Affiche les requêtes SQL générées par Hibernate dans la console
+
+  h2:
+    console:
+      enabled: true              # Active l'interface web H2 pour accéder à la base via un navigateur (http://localhost:8083/h2-console)
+      path: /h2-console
+
+# Configuration spécifique à l'API de paiement simulée
+payment:
+  api:
+    url: https://api-paiement-simule.fake   # URL de l'API de paiement fictive utilisée pour tests ou simulations
+    timeout: 5000                            # Temps maximum d'attente pour une requête API en millisecondes (5 secondes)
