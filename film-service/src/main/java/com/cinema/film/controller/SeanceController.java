@@ -2,9 +2,11 @@ package com.cinema.film.controller;
 
 import com.cinema.film.model.Seance;
 import com.cinema.film.repository.SeanceRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/seances")
@@ -19,6 +21,12 @@ public class SeanceController {
     @GetMapping
     public List<Seance> getAllSeances() {
         return seanceRepository.findAll();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Seance> getSeanceById(@PathVariable Long id) {
+        Optional<Seance> seance = seanceRepository.findById(id);
+        return seance.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/film/{filmId}")

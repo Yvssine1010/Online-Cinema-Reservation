@@ -32,4 +32,60 @@ public class Reservation {
     public Reservation() {
         this.dateCreation = LocalDateTime.now();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getSeanceId() {
+        return seanceId;
+    }
+
+    public void setSeanceId(Long seanceId) {
+        this.seanceId = seanceId;
+    }
+
+    public Long getUtilisateurId() {
+        return utilisateurId;
+    }
+
+    public void setUtilisateurId(Long utilisateurId) {
+        this.utilisateurId = utilisateurId;
+    }
+
+    public Integer getNombrePlaces() {
+        return nombrePlaces;
+    }
+
+    public void setNombrePlaces(Integer nombrePlaces) {
+        this.nombrePlaces = nombrePlaces;
+    }
+
+    public StatutReservation getStatut() {
+        return statut;
+    }
+
+    public void setStatut(StatutReservation statut) {
+        this.statut = statut;
+    }
+
+    public LocalDateTime getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(LocalDateTime dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public String getReferencePaiement() {
+        return referencePaiement;
+    }
+
+    public void setReferencePaiement(String referencePaiement) {
+        this.referencePaiement = referencePaiement;
+    }
 }

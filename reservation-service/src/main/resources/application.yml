@@ -12,11 +12,18 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
   h2:
     console:
       enabled: true
       path: /h2-console
+
+
+logging:
+  level:
+    com.cinema.film: DEBUG    # Logs de ton application
+    org.hibernate: DEBUG      # Logs Hibernate
+    org.springframework.web: DEBUG  # Logs Spring Web
 
 # On ajoutera Feign plus tard
