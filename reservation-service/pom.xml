@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2025.1.0-RC1</spring-cloud.version>
+		<sonar.organization>yvssine1010</sonar.organization>
 	</properties>
 	<dependencies>
 		<dependency>
