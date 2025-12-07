@@ -18,7 +18,7 @@ public class PaymentController {
 
     @GetMapping("/test")
     public String test() {
-        return "Payment service is working!";
+        return "Payment service is working with WebClient!";
     }
 
     @PostMapping("/process")
@@ -29,5 +29,10 @@ public class PaymentController {
     @GetMapping("/status/{reservationId}")
     public PaiementResponse getPaymentStatus(@PathVariable Long reservationId) {
         return paymentService.getPaymentStatus(reservationId);
+    }
+
+    @GetMapping("/test-webclient")
+    public String testWebClient() {
+        return "WebClient configuré pour: https://api-paiement-simule.fake";
     }
 }

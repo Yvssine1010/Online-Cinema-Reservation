@@ -1,9 +1,10 @@
+// src/main/java/com/cinema/reservation/controller/ReservationController.java
 package com.cinema.reservation.controller;
 
 import com.cinema.reservation.client.FilmServiceClient;
 import com.cinema.reservation.model.Reservation;
 import com.cinema.reservation.repository.ReservationRepository;
-import com.cinema.reservation.service.ReservationService;  // 👈 IMPORT AJOUTÉ
+import com.cinema.reservation.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,6 @@ public class ReservationController {
     private final ReservationService reservationService;
     private final FilmServiceClient filmServiceClient;
 
-    // 👇 CONSTRUCTEUR MIS À JOUR
     public ReservationController(ReservationRepository reservationRepository,
                                  ReservationService reservationService,
                                  FilmServiceClient filmServiceClient) {
@@ -25,7 +25,6 @@ public class ReservationController {
         this.reservationService = reservationService;
         this.filmServiceClient = filmServiceClient;
     }
-
 
     @GetMapping("/test")
     public String test() {
@@ -36,10 +35,16 @@ public class ReservationController {
     public List<Reservation> getAllReservations() {
         return reservationRepository.findAll();
     }
+
+    @GetMapping("/{id}")
+    public Reservation getReservationById(@PathVariable Long id) {
+        return reservationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Réservation non trouvée"));
+    }
+
     @GetMapping("/test-feign/{seanceId}")
     public String testFeign(@PathVariable Long seanceId) {
         try {
-            // Test simple pour vérifier que FeignClient fonctionne
             Object seance = filmServiceClient.getSeanceById(seanceId);
             return "FeignClient fonctionne ! Séance: " + seance;
         } catch (Exception e) {
@@ -59,5 +64,15 @@ public class ReservationController {
         Integer nombrePlaces = Integer.valueOf(request.get("nombrePlaces").toString());
 
         return reservationService.creerReservation(seanceId, utilisateurId, nombrePlaces);
+    }
+
+    @PostMapping("/{id}/annuler")
+    public Reservation annulerReservation(@PathVariable Long id) {
+        return reservationService.annulerReservation(id);
+    }
+
+    @GetMapping("/{id}/statut")
+    public String getStatutReservation(@PathVariable Long id) {
+        return reservationService.getStatutReservation(id);
     }
 }

@@ -3,6 +3,8 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: film-service
   datasource:
     url: jdbc:mysql://localhost:3306/cinema_films
     username: yassine
@@ -17,4 +19,11 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
-# PLUS besoin de spring.data.rest !
+# Eureka Client Configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.value}

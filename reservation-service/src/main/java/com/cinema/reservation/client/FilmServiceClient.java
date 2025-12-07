@@ -1,16 +1,12 @@
-// FilmServiceClient.java
 package com.cinema.reservation.client;
 
 import com.cinema.reservation.dto.Seance;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@FeignClient(name = "film-service", url = "http://localhost:8081")
+@FeignClient(name = "film-service")
 public interface FilmServiceClient {
 
     // Récupérer une séance par ID
@@ -18,6 +14,6 @@ public interface FilmServiceClient {
     Seance getSeanceById(@PathVariable Long id);
 
     // Mettre à jour les places disponibles
-    @PatchMapping("/api/seances/{id}")
+    @PutMapping("/api/seances/{id}/places")
     void updatePlacesDisponibles(@PathVariable Long id, @RequestBody Map<String, Integer> updates);
 }
